@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.rentcar.ui.CarModelsFragment;
 import com.example.rentcar.ui.gallery.GalleryFragment;
 import com.example.rentcar.ui.home.HomeFragment;
 import com.example.rentcar.ui.slideshow.SlideshowFragment;
@@ -63,6 +64,7 @@ public class HomeActivity extends AppCompatActivity {
     ImageView imgNavgation;
 
     List<DrawerModel> mList;
+    String admin="";
 
     String title[] = {"Home", "Profile", "About Us",
             "Bookings", "Share", "Logout"};
@@ -79,12 +81,23 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         txtTitle.setText("Rent Car");
+        Intent i=getIntent();
+        admin=i.getStringExtra("admin");
 
         mDrawerList.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
 
-        HomeFragment fragment = new HomeFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
+        if(admin.equals("true")){
+
+            CarModelsFragment fragment = new CarModelsFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
+
+        }else {
+
+            HomeFragment fragment = new HomeFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
+
+        }
 
         setListData();
 //
@@ -128,6 +141,26 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        mRelative.get(0).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HomeFragment fragment = new HomeFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
+
+            }
+        });
+        mRelative.get(1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //info fragment
+            }
+        });
+        mRelative.get(2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               //setting fragment
+            }
+        });
 
     }
     private void selectItem(int position) {

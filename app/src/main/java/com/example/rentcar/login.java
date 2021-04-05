@@ -28,6 +28,7 @@ public class login extends AppCompatActivity {
     boolean valid = true;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
+    String admin="false";
     //lolololololo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,19 +54,29 @@ public class login extends AppCompatActivity {
                 checkfields(password);
 
                 if (valid){
-                    fAuth.signInWithEmailAndPassword(email.getText().toString(),
-                            password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                        @Override
-                        public void onSuccess(AuthResult authResult) {
-                            Toast.makeText(login.this, "Login Successfully", Toast.LENGTH_LONG).show();
-                            checkUserIsAdmin(authResult.getUser().getUid());
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
+                    if(email.getText().toString().equals("admin@gmail.com")&&password.getText().toString().equals("123456")){
+                        admin="true";
+                        Toast.makeText(login.this, "admin Login Successfully", Toast.LENGTH_LONG).show();
+                       Intent i=new Intent(getApplicationContext(),HomeActivity.class);
+                       i.putExtra("admin",admin);
+                       startActivity(i);
+                       finish();
 
-                        }
-                    });
+                    }else {
+                        fAuth.signInWithEmailAndPassword(email.getText().toString(),
+                                password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                            @Override
+                            public void onSuccess(AuthResult authResult) {
+                                Toast.makeText(login.this, "Login Successfully", Toast.LENGTH_LONG).show();
+                                checkUserIsAdmin(authResult.getUser().getUid());
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                            }
+                        });
+                    }
                 }
             }
         });
@@ -89,7 +100,9 @@ public class login extends AppCompatActivity {
                 //Identify user access level whether the user is admin or customer
                 if (documentSnapshot.getString("isAdmin") != null){
                     //If User is Admin
-                    startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                    Intent i=new Intent(getApplicationContext(),HomeActivity.class);
+                    i.putExtra("admin",admin);
+                    startActivity(i);
                     finish();
                 }
                 if (documentSnapshot.getString("isCustomer") != null){
