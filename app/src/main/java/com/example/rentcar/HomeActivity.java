@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.rentcar.ui.CarModelsFragment;
+import com.example.rentcar.ui.SharedPrefUtil;
 import com.example.rentcar.ui.gallery.GalleryFragment;
 import com.example.rentcar.ui.home.HomeFragment;
 import com.example.rentcar.ui.slideshow.SlideshowFragment;
@@ -65,6 +66,7 @@ public class HomeActivity extends AppCompatActivity {
 
     List<DrawerModel> mList;
     String admin="";
+    SharedPrefUtil sharedPrefUtil;
 
     String title[] = {"Home", "Profile", "About Us",
             "Bookings", "Share", "Logout"};
@@ -81,8 +83,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         txtTitle.setText("Rent Car");
-        Intent i=getIntent();
-        admin=i.getStringExtra("admin");
+        sharedPrefUtil=SharedPrefUtil.getInstance();
+       admin=sharedPrefUtil.getString(SharedPrefUtil.ADMIN);
 
         mDrawerList.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
@@ -253,7 +255,7 @@ public class HomeActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         //CommonMethod.showProgress(getApplicationContext());
                         //  Logout();
-                       // helper.onLogout();
+                        sharedPrefUtil.onLogout();
                         Intent it = new Intent(HomeActivity.this,login.class);
                         it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(it);

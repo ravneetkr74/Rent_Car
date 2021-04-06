@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.rentcar.ui.SharedPrefUtil;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -29,6 +30,8 @@ public class login extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String admin="false";
+    SharedPrefUtil sharedPrefUtil;
+
     //lolololololo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,7 @@ public class login extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
         setContentView(R.layout.activity_login);
+        sharedPrefUtil = SharedPrefUtil.getInstance();
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -56,8 +60,10 @@ public class login extends AppCompatActivity {
                 if (valid){
                     if(email.getText().toString().equals("admin@gmail.com")&&password.getText().toString().equals("123456")){
                         admin="true";
+                        sharedPrefUtil.saveString(SharedPrefUtil.ADMIN,admin);
                         Toast.makeText(login.this, "admin Login Successfully", Toast.LENGTH_LONG).show();
                        Intent i=new Intent(getApplicationContext(),HomeActivity.class);
+
                        i.putExtra("admin",admin);
                        startActivity(i);
                        finish();
@@ -100,8 +106,9 @@ public class login extends AppCompatActivity {
                 //Identify user access level whether the user is admin or customer
                 if (documentSnapshot.getString("isAdmin") != null){
                     //If User is Admin
+
                     Intent i=new Intent(getApplicationContext(),HomeActivity.class);
-                    i.putExtra("admin",admin);
+
                     startActivity(i);
                     finish();
                 }
@@ -129,7 +136,7 @@ public class login extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+         if ((FirebaseAuth.getInstance().getCurrentUser()) != null || (SharedPrefUtil.getInstance().getString(SharedPrefUtil.ADMIN).equals("true"))){
             startActivity(new Intent(getApplicationContext(),HomeActivity.class));
             finish();
         }

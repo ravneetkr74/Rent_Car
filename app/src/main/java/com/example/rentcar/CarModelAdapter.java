@@ -10,12 +10,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.rentcar.Model.Car;
 import com.example.rentcar.ui.CarModelsFragment;
+import com.example.rentcar.ui.SharedPrefUtil;
+
+import java.util.List;
 
 public abstract class CarModelAdapter extends RecyclerView.Adapter<CarModelAdapter.Viewholder> {
     public Context context;
-    public CarModelAdapter(Context context) {
+    SharedPrefUtil sharedPrefUtil;
+    List<Car> mlist;
+    public CarModelAdapter(Context context,List<Car> list) {
         this.context=context;
+        this.mlist=list;
     }
 
     @NonNull
@@ -28,10 +35,18 @@ public abstract class CarModelAdapter extends RecyclerView.Adapter<CarModelAdapt
 
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
+        sharedPrefUtil=SharedPrefUtil.getInstance();
+        if(sharedPrefUtil.getString(SharedPrefUtil.ADMIN).equals("true")){
+            holder.book.setText("Delete");
+        }else {
+
+        }
+        holder.name.setText(""+mlist.get(position).name);
 holder.book.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
-        getBookings();
+
+        getBookings(position);
 
 
     }
@@ -40,17 +55,20 @@ holder.book.setOnClickListener(new View.OnClickListener() {
 
     @Override
     public int getItemCount() {
-        return 5;
+        return mlist.size();
     }
 
     public class Viewholder extends RecyclerView.ViewHolder {
         Button book;
+        TextView name;
         public Viewholder(@NonNull View itemView) {
 
             super(itemView);
             book=(Button) itemView.findViewById(R.id.book);
+            name=(TextView) itemView.findViewById(R.id.textView12);
+
 
         }
     }
-    public abstract void getBookings();
+    public abstract void getBookings(int pos);
 }
