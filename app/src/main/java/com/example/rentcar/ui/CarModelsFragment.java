@@ -78,7 +78,7 @@ public class CarModelsFragment extends Fragment {
             user_name.setText("Add");
             getAllCars();
         }else {
-
+            car_type.setText(sharedPrefUtil.getString(SharedPrefUtil.CAR_TYPE));
         }
         // Inflate the layout for this fragment
         modelAdapter = new CarModelAdapter(getContext(),mlist) {
@@ -218,6 +218,7 @@ public class CarModelsFragment extends Fragment {
 
                 case R.id.user_name:
                 case R.id.imageView4:
+                    sharedPrefUtil.saveString(SharedPrefUtil.FROM,"add");
                     AddEditCar Addedit = new AddEditCar();
                     getFragmentManager().beginTransaction().replace(R.id.frame_container, Addedit).addToBackStack(null).commit();
 

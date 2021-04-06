@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rentcar.Model.Car;
@@ -42,7 +43,10 @@ public abstract class CarModelAdapter extends RecyclerView.Adapter<CarModelAdapt
 
         }
         holder.name.setText(""+mlist.get(position).name);
-holder.book.setOnClickListener(new View.OnClickListener() {
+        holder.description.setText(""+mlist.get(position).description);
+        holder.price.setText(""+mlist.get(position).price);
+
+        holder.book.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
 
@@ -58,15 +62,31 @@ holder.book.setOnClickListener(new View.OnClickListener() {
         return mlist.size();
     }
 
-    public class Viewholder extends RecyclerView.ViewHolder {
+    public class Viewholder extends RecyclerView.ViewHolder implements View.OnClickListener {
         Button book;
-        TextView name;
+        TextView name,description,price;
         public Viewholder(@NonNull View itemView) {
 
             super(itemView);
             book=(Button) itemView.findViewById(R.id.book);
             name=(TextView) itemView.findViewById(R.id.textView12);
+            description=(TextView) itemView.findViewById(R.id.description);
+            price=(TextView) itemView.findViewById(R.id.price);
 
+               itemView.setOnClickListener(this);
+
+
+        }
+
+        @Override
+        public void onClick(View view) {
+            if(sharedPrefUtil.getString(SharedPrefUtil.ADMIN).equals("true")){
+                sharedPrefUtil.saveString(SharedPrefUtil.FROM,"edit");
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                AddEditCar addEditCar = new AddEditCar();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, addEditCar).addToBackStack(null).commit();
+
+            }
 
         }
     }

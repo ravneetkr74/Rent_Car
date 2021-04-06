@@ -146,9 +146,17 @@ public class HomeActivity extends AppCompatActivity {
         mRelative.get(0).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HomeFragment fragment = new HomeFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
+                if(admin.equals("true")){
 
+                    CarModelsFragment fragment = new CarModelsFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
+
+                }else {
+
+                    HomeFragment fragment = new HomeFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
+
+                }
             }
         });
         mRelative.get(1).setOnClickListener(new View.OnClickListener() {
@@ -177,7 +185,15 @@ public class HomeActivity extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
-                fragment = new HomeFragment();
+                if(admin.equals("true")){
+
+                     fragment = new CarModelsFragment();
+
+                }else {
+
+                    fragment = new HomeFragment();
+
+                }
 
                 break;
 
