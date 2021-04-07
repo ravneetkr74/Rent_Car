@@ -59,6 +59,7 @@ public class login extends AppCompatActivity {
                     if(email.getText().toString().equals("admin@gmail.com")&&password.getText().toString().equals("123456")){
                         admin="true";
                         sharedPrefUtil.saveString(SharedPrefUtil.ADMIN,admin);
+                        sharedPrefUtil.saveBoolean(SharedPrefUtil.LOGIN,true);
                         Toast.makeText(login.this, "admin Login Successfully", Toast.LENGTH_LONG).show();
                        Intent i=new Intent(getApplicationContext(),HomeActivity.class);
 
@@ -104,6 +105,7 @@ public class login extends AppCompatActivity {
                 //Identify user access level whether the user is admin or customer
                 if (documentSnapshot.getString("isAdmin") != null){
                     //If User is Admin
+                    sharedPrefUtil.saveBoolean(SharedPrefUtil.LOGIN,true);
 
                     Intent i=new Intent(getApplicationContext(),HomeActivity.class);
 

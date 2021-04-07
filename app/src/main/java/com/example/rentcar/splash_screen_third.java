@@ -9,9 +9,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.example.rentcar.ui.SharedPrefUtil;
+
 public class splash_screen_third extends AppCompatActivity {
 
     Button start_register_btn;
+    SharedPrefUtil sharedPrefUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +26,20 @@ public class splash_screen_third extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen_third);
 
         start_register_btn = findViewById(R.id.start_btn_register);
+        sharedPrefUtil=SharedPrefUtil.getInstance();
         start_register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent start_app = new Intent(getApplicationContext(),Register.class);
-                startActivity(start_app);
+                if(sharedPrefUtil.getBoolean(SharedPrefUtil.LOGIN)){
+                    Intent i=new Intent(getApplicationContext(),HomeActivity.class);
+
+                    startActivity(i);
+
+                }else {
+                    Intent start_app = new Intent(getApplicationContext(),Register.class);
+                    startActivity(start_app);
+                }
+
             }
         });
     }

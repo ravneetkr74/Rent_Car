@@ -162,8 +162,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/view_10"
-                android:layout_marginLeft="@dimen/view_20"
-                android:layout_marginRight="@dimen/view_20"
+                android:layout_marginLeft="@dimen/view_30"
+                android:layout_marginRight="@dimen/view_30"
                 android:background="@drawable/status_bg"
                 android:weightSum="2">
                 <TextView

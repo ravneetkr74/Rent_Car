@@ -82,10 +82,10 @@ public class AddEditCar extends ImagePickerFragment {
 
                 fuel_="diesel";
 
-                petrol.setTextColor(getResources().getColor(R.color.white));
-                diesel.setTextColor(getResources().getColor(R.color.purple_700));
-                petrol.setBackground(getResources().getDrawable(R.drawable.txt_custom_right_color_bg));
-                diesel.setBackground(getResources().getDrawable(R.drawable.txt_custom_bg));
+                diesel.setTextColor(getResources().getColor(R.color.white));
+                petrol.setTextColor(getResources().getColor(R.color.purple_700));
+                diesel.setBackground(getResources().getDrawable(R.drawable.txt_custom_right_color_bg));
+                petrol.setBackground(getResources().getDrawable(R.drawable.txt_custom_bg));
 
 
                 break;
@@ -93,10 +93,10 @@ public class AddEditCar extends ImagePickerFragment {
             case R.id.fuel:
 
                 fuel_="petrol";
-                petrol.setTextColor(getResources().getColor(R.color.purple_700));
-                diesel.setTextColor(getResources().getColor(R.color.white));
-                diesel.setBackground(getResources().getDrawable(R.drawable.txt_custom_color_bg));
-                petrol.setBackground(getResources().getDrawable(R.drawable.txt_right_custom_bg));
+                diesel.setTextColor(getResources().getColor(R.color.purple_700));
+                petrol.setTextColor(getResources().getColor(R.color.white));
+                petrol.setBackground(getResources().getDrawable(R.drawable.txt_custom_color_bg));
+                diesel.setBackground(getResources().getDrawable(R.drawable.txt_right_custom_bg));
 
 
                 break;

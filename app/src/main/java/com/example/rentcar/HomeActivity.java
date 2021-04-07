@@ -311,12 +311,12 @@ public class HomeActivity extends AppCompatActivity {
 //            super.onBackPressed();
 //        }
 
-        if(getCurrentFrag() instanceof HomeFragment){
-            finish();
-        }
-        else {
-            changeFragment(new HomeFragment());
-        }
+//        if(getCurrentFrag() instanceof HomeFragment){
+//            finish();
+//        }
+//        else {
+//            changeFragment(new HomeFragment());
+//        }
     }
 
     public Fragment getCurrentFrag(){
