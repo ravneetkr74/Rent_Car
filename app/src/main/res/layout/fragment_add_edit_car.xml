@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddEditCar">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/add_constraint">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/view_100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/view_20"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/minicar"
+            android:id="@+id/car_img"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/select_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="84dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.52"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/car_img"
+            app:srcCompat="@drawable/ic_menu_camera" />
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/select_img"
+            app:layout_constraintVertical_bias="0.100000024">
+
+
+            <TextView
+                android:id="@+id/name_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:padding="@dimen/view_10"
+                android:text="Car name"
+                android:textColor="@color/purple_700"
+                android:textSize="@dimen/txt_18" />
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/view_10"
+                android:layout_marginRight="@dimen/view_10"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLength="25" />
+
+            <TextView
+                android:id="@+id/Car_Description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/view_10"
+                android:text="Car Description"
+                android:textColor="@color/purple_700"
+                android:textSize="@dimen/txt_18" />
+
+
+            <EditText
+                android:id="@+id/description_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/view_10"
+                android:layout_marginRight="@dimen/view_10"
+                android:cursorVisible="true"
+                android:focusableInTouchMode="true"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLength="60"
+                android:textCursorDrawable="@null" />
+
+
+            <TextView
+                android:id="@+id/car_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/view_10"
+                android:text="Car Price"
+                android:textColor="@color/purple_700"
+                android:textSize="@dimen/txt_18" />
+
+
+            <EditText
+                android:id="@+id/price_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/view_10"
+                android:layout_marginRight="@dimen/view_10"
+                android:cursorVisible="true"
+                android:focusableInTouchMode="true"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="10"
+                android:textCursorDrawable="@null" />
+
+            <TextView
+                android:id="@+id/car_mileage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/view_10"
+                android:text="Mileage"
+                android:textColor="@color/purple_700"
+                android:textSize="@dimen/txt_18" />
+
+
+            <EditText
+                android:id="@+id/mileage_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/view_10"
+                android:layout_marginRight="@dimen/view_10"
+                android:cursorVisible="true"
+                android:focusableInTouchMode="true"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="10"
+                android:textCursorDrawable="@null" />
+            <TextView
+                android:id="@+id/car_seat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/view_10"
+                android:text="Number of seats"
+                android:textColor="@color/purple_700"
+                android:textSize="@dimen/txt_18" />
+
+
+            <EditText
+                android:id="@+id/seat_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/view_10"
+                android:layout_marginRight="@dimen/view_10"
+                android:cursorVisible="true"
+                android:focusableInTouchMode="true"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="10"
+                android:textCursorDrawable="@null" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/view_10"
+                android:layout_marginLeft="@dimen/view_20"
+                android:layout_marginRight="@dimen/view_20"
+                android:background="@drawable/status_bg"
+                android:weightSum="2">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="@drawable/txt_custom_color_bg"
+
+                    android:id="@+id/fuel"
+                    android:textColor="@color/white"
+                    android:text="Petrol"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/purple_700"
+                    android:background="@drawable/txt_right_custom_bg"
+                    android:id="@+id/diesel"
+                    android:text="Diesel"/>
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_50"
+                android:layout_marginTop="24dp"
+                android:layout_marginRight="@dimen/view_20"
+                android:layout_marginLeft="@dimen/view_20"
+                android:background="@drawable/book_btn_bg"
+                android:text="Add"
+                android:id="@+id/add_car"
+                android:textColor="@color/white"/>
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.core.widget.NestedScrollView>

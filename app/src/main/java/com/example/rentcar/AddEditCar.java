@@ -78,9 +78,9 @@ public class AddEditCar extends ImagePickerFragment {
     public void onClick(View view) {
         switch (view.getId()) {
 
-            case R.id.fuel:
+            case R.id.diesel:
 
-                fuel_="petrol";
+                fuel_="diesel";
 
                 petrol.setTextColor(getResources().getColor(R.color.white));
                 diesel.setTextColor(getResources().getColor(R.color.purple_700));
@@ -90,9 +90,9 @@ public class AddEditCar extends ImagePickerFragment {
 
                 break;
 
-            case R.id.diesel:
+            case R.id.fuel:
 
-                fuel_="diesel";
+                fuel_="petrol";
                 petrol.setTextColor(getResources().getColor(R.color.purple_700));
                 diesel.setTextColor(getResources().getColor(R.color.white));
                 diesel.setBackground(getResources().getDrawable(R.drawable.txt_custom_color_bg));
