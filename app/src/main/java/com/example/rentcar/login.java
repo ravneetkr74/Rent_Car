@@ -31,8 +31,6 @@ public class login extends AppCompatActivity {
     FirebaseFirestore fStore;
     String admin="false";
     SharedPrefUtil sharedPrefUtil;
-
-    //lolololololo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
