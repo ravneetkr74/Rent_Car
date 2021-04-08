@@ -12,12 +12,13 @@ public class Car {
     public String fuel;
     public String seats;
     public String id;
+    public String image;
 
     public Car() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public Car(String name, String description, String price, String mileage, String fuel, String seats, String id) {
+    public Car(String name, String description, String price, String mileage, String fuel, String seats, String id, String image) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -25,5 +26,6 @@ public class Car {
         this.fuel = fuel;
         this.seats = seats;
         this.id = id;
+        this.image = image;
     }
 }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rentcar.Model.Car;
-import com.example.rentcar.ui.CarModelsFragment;
 import com.example.rentcar.ui.SharedPrefUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -42,6 +43,7 @@ public abstract class CarModelAdapter extends RecyclerView.Adapter<CarModelAdapt
         }else {
 
         }
+        Picasso.get().load(mlist.get(position).image).into(holder.imgCar);
         holder.name.setText(""+mlist.get(position).name);
         holder.description.setText(""+mlist.get(position).description);
         holder.price.setText(""+mlist.get(position).price);
@@ -50,7 +52,7 @@ public abstract class CarModelAdapter extends RecyclerView.Adapter<CarModelAdapt
     @Override
     public void onClick(View view) {
 
-        getBookings(position);
+        setBookingOrDelete(position);
 
 
     }
@@ -65,12 +67,14 @@ public abstract class CarModelAdapter extends RecyclerView.Adapter<CarModelAdapt
     public class Viewholder extends RecyclerView.ViewHolder implements View.OnClickListener {
         Button book;
         TextView name,description,price;
+        ImageView imgCar;
         public Viewholder(@NonNull View itemView) {
 
             super(itemView);
+            imgCar = itemView.findViewById(R.id.imgCar);
             book=(Button) itemView.findViewById(R.id.book);
             name=(TextView) itemView.findViewById(R.id.textView12);
-            description=(TextView) itemView.findViewById(R.id.description);
+            description=(TextView) itemView.findViewById(R.id.carDesc);
             price=(TextView) itemView.findViewById(R.id.price);
 
                itemView.setOnClickListener(this);
@@ -90,5 +94,5 @@ public abstract class CarModelAdapter extends RecyclerView.Adapter<CarModelAdapt
 
         }
     }
-    public abstract void getBookings(int pos);
+    public abstract void setBookingOrDelete(int pos);
 }

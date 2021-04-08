@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/imageView5"
+                    android:id="@+id/imgCar"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
 
@@ -100,7 +100,7 @@
                     android:layout_marginRight="@dimen/view_20"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView5">
+                    app:layout_constraintTop_toBottomOf="@+id/imgCar">
 
                     <TextView
                         android:id="@+id/mileage_txt"
@@ -153,7 +153,7 @@
                 </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/description"
+                    android:id="@+id/carDesc"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/view_10"
@@ -178,7 +178,7 @@
                     android:textSize="@dimen/txt_16"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/description" />
+                    app:layout_constraintTop_toBottomOf="@+id/carDesc" />
 
                 <RatingBar
                     android:id="@+id/ratingBar"
@@ -193,8 +193,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.062"
 
-                    app:layout_constraintStart_toStartOf="@+id/description"
-                    app:layout_constraintTop_toBottomOf="@+id/description" />
+                    app:layout_constraintStart_toStartOf="@+id/carDesc"
+                    app:layout_constraintTop_toBottomOf="@+id/carDesc" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

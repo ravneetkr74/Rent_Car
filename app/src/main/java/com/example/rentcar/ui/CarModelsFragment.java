@@ -34,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -83,47 +84,9 @@ public class CarModelsFragment extends Fragment {
         // Inflate the layout for this fragment
         modelAdapter = new CarModelAdapter(getContext(),mlist) {
             @Override
-            public void getBookings(int pos) {
+            public void setBookingOrDelete(int pos) {
 
-                if (admin.equals("true")) {
-
-                    final AlertDialog.Builder mainDialog = new AlertDialog.Builder(getContext());
-                    LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    View dialogView = inflater.inflate(R.layout.alert_dialog, null);
-                    mainDialog.setView(dialogView);
-
-                    final Button cancel = (Button) dialogView.findViewById(R.id.cancel);
-                    final Button save = (Button) dialogView.findViewById(R.id.save);
-                    final TextView act_name=(TextView)dialogView.findViewById(R.id.cat_name);
-                    final TextView title=(TextView)dialogView.findViewById(R.id.title);
-                    final AlertDialog alertDialog = mainDialog.create();
-                    alertDialog.show();
-                    title.setText("Warning!");
-                    act_name.setText("Are you sure you want to delete this car?");
-
-                    cancel.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            alertDialog.dismiss();
-
-                        }
-                    });
-
-                    save.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-
-                            alertDialog.dismiss();
-                        }
-                    });
-                } else {
-
-                    CarDetailsFragment fragment = new CarDetailsFragment();
-
-                    getFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).addToBackStack(null).commit();
-                }
+               handleBookingAndDelete(pos);
             }
         };
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -136,65 +99,39 @@ public class CarModelsFragment extends Fragment {
         ChildEventListener listener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
                 Car car=snapshot.getValue(Car.class);
                 mlist.add(car);
-                modelAdapter = new CarModelAdapter(getContext(),mlist) {
-                    @Override
-                    public void getBookings(int pos) {
+                refreshRecyclerView();
 
-                        if (admin.equals("true")) {
-
-                            final AlertDialog.Builder mainDialog = new AlertDialog.Builder(getContext());
-                            LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                            View dialogView = inflater.inflate(R.layout.alert_dialog, null);
-                            mainDialog.setView(dialogView);
-
-                            final Button cancel = (Button) dialogView.findViewById(R.id.cancel);
-                            final Button save = (Button) dialogView.findViewById(R.id.save);
-                            final TextView act_name=(TextView)dialogView.findViewById(R.id.cat_name);
-                            final TextView title=(TextView)dialogView.findViewById(R.id.title);
-                            final AlertDialog alertDialog = mainDialog.create();
-                            alertDialog.show();
-                            title.setText("Warning!");
-                            act_name.setText("Are you sure you want to delete this car?");
-
-                            cancel.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-
-                                    alertDialog.dismiss();
-
-                                }
-                            });
-
-                            save.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-
-
-                                    alertDialog.dismiss();
-                                }
-                            });
-                        } else {
-
-                            CarDetailsFragment fragment = new CarDetailsFragment();
-
-                            getFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).addToBackStack(null).commit();
-                        }
-                    }
-                };
-                recycler.setLayoutManager(new LinearLayoutManager(getContext()));
-                recycler.setItemAnimator(new DefaultItemAnimator());
-                recycler.setAdapter(modelAdapter);
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                Log.e("@@@@@@@@@@@@@","get maa"+snapshot);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                    List<Car> result = mlist.stream()
+                            .filter(item -> item.id.equals(snapshot.getKey()))
+                            .collect(Collectors.toList());
+                    if(result.size() != 0){
+                        mlist.remove(result.get(0));
+                        Car car=snapshot.getValue(Car.class);
+                        mlist.add(car);
+                    }
+                }
+                refreshRecyclerView();
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                    List<Car> result = mlist.stream()
+                            .filter(item -> item.id.equals(snapshot.getKey()))
+                            .collect(Collectors.toList());
+                    if(result.size() != 0){
+                        mlist.remove(result.get(0));
+                    }
+                }
+                refreshRecyclerView();
 
             }
 
@@ -209,6 +146,60 @@ public class CarModelsFragment extends Fragment {
             }
         };
         mDatabase.child("Cars").addChildEventListener(listener);
+    }
+
+    private void refreshRecyclerView() {
+        modelAdapter = new CarModelAdapter(getContext(),mlist) {
+            @Override
+            public void setBookingOrDelete(int pos) {
+                handleBookingAndDelete(pos);
+            }
+        };
+        recycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        recycler.setItemAnimator(new DefaultItemAnimator());
+        recycler.setAdapter(modelAdapter);
+    }
+
+    private void handleBookingAndDelete(int pos) {
+        if (admin.equals("true")) {
+
+            final AlertDialog.Builder mainDialog = new AlertDialog.Builder(getContext());
+            LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View dialogView = inflater.inflate(R.layout.alert_dialog, null);
+            mainDialog.setView(dialogView);
+
+            final Button cancel = (Button) dialogView.findViewById(R.id.cancel);
+            final Button save = (Button) dialogView.findViewById(R.id.save);
+            final TextView act_name=(TextView)dialogView.findViewById(R.id.cat_name);
+            final TextView title=(TextView)dialogView.findViewById(R.id.title);
+            final AlertDialog alertDialog = mainDialog.create();
+            alertDialog.show();
+            title.setText("Warning!");
+            act_name.setText("Are you sure you want to delete this car?");
+
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    alertDialog.dismiss();
+
+                }
+            });
+
+            save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    mDatabase.child("Cars").child(mlist.get(pos).id).removeValue();
+                    alertDialog.dismiss();
+                }
+            });
+        } else {
+
+            CarDetailsFragment fragment = new CarDetailsFragment();
+
+            getFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+        }
     }
 
     @OnClick({R.id.user_name, R.id.imageView4})
