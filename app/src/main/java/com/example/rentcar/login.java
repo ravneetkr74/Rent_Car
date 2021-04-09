@@ -78,6 +78,8 @@ public class login extends AppCompatActivity {
                             @Override
                             public void onSuccess(AuthResult authResult) {
                                 Toast.makeText(login.this, "Login Successfully", Toast.LENGTH_LONG).show();
+                                sharedPrefUtil.saveBoolean(SharedPrefUtil.LOGIN,true);
+
                                 checkUserIsAdmin(authResult.getUser().getUid());
                             }
                         }).addOnFailureListener(new OnFailureListener() {

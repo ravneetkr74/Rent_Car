@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rentcar.Model.Car;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -131,8 +132,14 @@ public class CarDetailsFragment extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                constraintLayout.setVisibility(View.GONE);
-                constraintLayout1.setVisibility(View.VISIBLE);
+               if(date_txt.getText().toString().equals("Select Date")){
+                   Toast.makeText(getContext(),"Please select  booking date",Toast.LENGTH_SHORT).show();
+               }else {
+                   constraintLayout.setVisibility(View.GONE);
+                   constraintLayout1.setVisibility(View.VISIBLE);
+              }
+
+
             }
         });
 
