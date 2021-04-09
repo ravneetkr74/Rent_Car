@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.ProfileFragment">
+
+ <androidx.constraintlayout.widget.ConstraintLayout
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:id="@+id/profile_constraint">
+
+     <TextView
+         android:id="@+id/textView12"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="24dp"
+         android:text="Profile"
+         android:textColor="@color/purple_700"
+         android:textSize="@dimen/txt_20"
+         android:textStyle="bold"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
+
+     <EditText
+         android:id="@+id/editTextTextPersonName"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="@dimen/margin_30"
+         android:layout_marginTop="@dimen/margin_30"
+         android:layout_marginRight="@dimen/margin_30"
+         android:ems="10"
+         android:inputType="textPersonName"
+         android:text="Name"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.95"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/textView12" />
+     <EditText
+         android:id="@+id/editTextEmail"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="@dimen/margin_30"
+         android:layout_marginTop="@dimen/margin_30"
+         android:layout_marginRight="@dimen/margin_30"
+         android:ems="10"
+         android:editable="false"
+         android:inputType="textEmailAddress"
+         android:text="Email"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.95"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+     <EditText
+         android:id="@+id/editTextPassword"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="@dimen/margin_30"
+         android:layout_marginTop="@dimen/margin_30"
+         android:layout_marginRight="@dimen/margin_30"
+         android:ems="10"
+         android:inputType="textPassword"
+         android:text="Password"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.95"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
+     <EditText
+         android:id="@+id/editTextPhone"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="@dimen/margin_30"
+         android:layout_marginTop="@dimen/margin_30"
+         android:layout_marginRight="@dimen/margin_30"
+         android:ems="10"
+         android:inputType="phone"
+         android:text="Phone"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.95"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+     <EditText
+         android:id="@+id/editTextAddress"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="@dimen/margin_30"
+         android:layout_marginTop="@dimen/margin_30"
+         android:layout_marginRight="@dimen/margin_30"
+         android:ems="10"
+         android:inputType="text"
+         android:text="Street Address"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.95"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/editTextPhone" />
+     <EditText
+         android:id="@+id/editTextCity"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="@dimen/margin_30"
+         android:layout_marginTop="@dimen/margin_30"
+         android:layout_marginRight="@dimen/margin_30"
+         android:ems="10"
+         android:inputType="text"
+         android:text="City"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.95"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/editTextAddress" />
+     <EditText
+         android:id="@+id/editTextCode"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="@dimen/margin_30"
+         android:layout_marginTop="@dimen/margin_30"
+         android:layout_marginRight="@dimen/margin_30"
+         android:ems="10"
+         android:inputType="text"
+         android:text="Zip Code"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.95"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/editTextCity" />
+     <androidx.appcompat.widget.AppCompatButton
+         android:id="@+id/updateProfile"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="@dimen/margin_30"
+         android:layout_marginTop="@dimen/margin_30"
+         android:layout_marginRight="@dimen/margin_30"
+         android:text="Update Profile"
+         android:background="@drawable/book_btn_bg"
+         android:textColor="@color/white"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.95"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/editTextCity" />
+ </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

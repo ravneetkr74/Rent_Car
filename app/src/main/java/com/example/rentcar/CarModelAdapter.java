@@ -43,7 +43,7 @@ public abstract class CarModelAdapter extends RecyclerView.Adapter<CarModelAdapt
         }else {
 
         }
-        Picasso.get().load(mlist.get(position).image).into(holder.imgCar);
+        Picasso.get().load(mlist.get(position).image).placeholder(R.drawable.car).into(holder.imgCar);
         holder.name.setText(""+mlist.get(position).name);
         holder.description.setText(""+mlist.get(position).description);
         holder.price.setText(""+mlist.get(position).price);
