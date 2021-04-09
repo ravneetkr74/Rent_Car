@@ -18,9 +18,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rentcar.Model.Booking;
 import com.example.rentcar.Model.Car;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,6 +55,10 @@ public class CarDetailsFragment extends Fragment {
     TextView carDesc;
     @BindView(R.id.price)
     TextView price;
+    @BindView(R.id.from_loc)
+    TextView locFrom;
+    @BindView(R.id.to_loc)
+    TextView locTo;
     @BindView(R.id.txtCarTitle)
     TextView txtCarTitle;
     @BindView(R.id.imgCar)
@@ -62,6 +68,8 @@ public class CarDetailsFragment extends Fragment {
     @BindView(R.id.booking)
     Button booking;
     Car selectedCar;
+    String dateFrom;
+    String dateTo;
     private DatabaseReference mDatabase;
 
     @Override
@@ -104,6 +112,7 @@ public class CarDetailsFragment extends Fragment {
                 MaterialDatePicker.Builder.dateRangePicker()
                         .setTitleText("Select dates")
                         .build();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         date_txt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +135,8 @@ public class CarDetailsFragment extends Fragment {
                         // in the above statement, getHeaderText
                         // will return selected date preview from the
                         // dialog
+                        dateFrom = dateRangePicker.getSelection().first.toString();
+                        dateTo = dateRangePicker.getSelection().second.toString();
                     }
                 });
 
@@ -137,6 +148,11 @@ public class CarDetailsFragment extends Fragment {
                }else {
                    constraintLayout.setVisibility(View.GONE);
                    constraintLayout1.setVisibility(View.VISIBLE);
+                   String id = mDatabase.child("Booking").push().getKey();
+                   String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                   Booking book = new Booking(id,selectedCar.id,uid,dateFrom,dateTo,locFrom.getText().toString(),locTo.getText().toString(),price.getText().toString());
+                   mDatabase.child("Booking").child(id).setValue(book);
+                   Toast.makeText(getContext(), "Booking Successful!", Toast.LENGTH_SHORT).show();
               }
 
 
@@ -151,7 +167,7 @@ public class CarDetailsFragment extends Fragment {
             }
         });
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         if (getArguments() != null) {
             String id = getArguments().getString("carID");
             getCarDetail(id);

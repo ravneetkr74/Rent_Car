@@ -11,12 +11,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.rentcar.Model.Booking;
+import com.example.rentcar.Model.Car;
 import com.example.rentcar.ui.SharedPrefUtil;
+
+import java.util.List;
 
 public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.Viewholder> {
     public Context context;
     SharedPrefUtil sharedPrefUtil;
-
+    List<Booking> mlist;
+    public BookingAdapter(Context context,List<Booking> list) {
+        this.context=context;
+        this.mlist=list;
+    }
     @NonNull
     @Override
     public BookingAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -36,11 +44,12 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.Viewhold
             holder.reject.setVisibility(View.GONE);
 
         }
+        holder.name.setText("BookingID"+mlist.get(position).bookingID);
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return mlist.size();
     }
 
     public class Viewholder extends RecyclerView.ViewHolder {

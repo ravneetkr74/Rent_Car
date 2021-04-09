@@ -4,14 +4,14 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class Booking {
-    String bookingID;
-    String carID;
-    String userID;
-    String from;
-    String to;
-    String pickup;
-    String drop;
-    String price;
+    public String bookingID;
+    public String carID;
+    public String userID;
+    public String from;
+    public String to;
+    public String pickup;
+    public String drop;
+    public String price;
 
 
     public Booking(){
