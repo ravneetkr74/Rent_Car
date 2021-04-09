@@ -52,6 +52,7 @@ public class BookingFragment extends Fragment {
         }else {
 
         }
+        bookingAdapter=new BookingAdapter();
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         recycler.setItemAnimator(new DefaultItemAnimator());
         recycler.setAdapter(bookingAdapter);
