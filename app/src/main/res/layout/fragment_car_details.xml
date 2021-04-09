@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -202,7 +202,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:id="@+id/constraint"
             android:visibility="visible"
             android:layout_marginRight="@dimen/view_10"
@@ -350,11 +350,11 @@
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="@+id/comment"
                 app:layout_constraintTop_toBottomOf="@+id/comment" />
-
+          
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:id="@+id/constraint1"
             android:visibility="gone"
             android:layout_marginRight="@dimen/view_10"
