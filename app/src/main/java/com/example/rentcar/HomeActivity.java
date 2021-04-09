@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.rentcar.ui.CarModelsFragment;
+import com.example.rentcar.ui.ProfileFragment;
 import com.example.rentcar.ui.SharedPrefUtil;
 import com.example.rentcar.ui.gallery.GalleryFragment;
 import com.example.rentcar.ui.home.HomeFragment;
@@ -207,7 +208,7 @@ public class HomeActivity extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
 
-                 fragment = new GalleryFragment();
+                 fragment = new ProfileFragment();
 
                 break;
 
@@ -226,7 +227,7 @@ public class HomeActivity extends AppCompatActivity {
                 view = this.getCurrentFocus();
 
 
-                fragment = new SlideshowFragment();
+                fragment = new BookingFragment();
 
                 break;
 
