@@ -2,6 +2,7 @@ package com.example.rentcar.ui;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 import com.example.rentcar.MyApplication;
 
@@ -60,6 +61,11 @@ public class SharedPrefUtil {
         mEditor.putString(key, value);
         mEditor.apply();
     }
+
+    public static boolean isValidEmail(CharSequence target) {
+        return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+    }
+
 
 
 
