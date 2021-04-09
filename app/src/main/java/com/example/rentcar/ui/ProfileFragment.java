@@ -2,17 +2,28 @@ package com.example.rentcar.ui;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.rentcar.Model.User;
 import com.example.rentcar.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.rpc.context.AttributeContext;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class ProfileFragment extends Fragment {
@@ -31,7 +42,11 @@ public class ProfileFragment extends Fragment {
     EditText city;
     @BindView(R.id.editTextCode)
     EditText code;
+    @BindView(R.id.updateProfile)
+    Button update;
 
+    User currentUser;
+    private DatabaseReference mDatabase;
 
 
 
@@ -52,7 +67,40 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.bind(this,view);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        getUserData();
         return view;
+    }
+
+    private void getUserData() {
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            String id  = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            ValueEventListener valueEventListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    currentUser = snapshot.getValue(User.class);
+                    if (currentUser != null) {
+                        name.setText(currentUser.name);
+                        email.setText(currentUser.email);
+                        if(!currentUser.phone.equals(" ")){
+                            phone.setText(currentUser.phone);
+                        }
+                        if(!currentUser.city.equals(" ")){
+                            city.setText(currentUser.city);
+                        }
+                        if(!currentUser.address.equals(" ")){
+                            address.setText(currentUser.address);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            };
+            mDatabase.child("Users").child(id).addValueEventListener(valueEventListener);
+        }
     }
 
     private boolean checkValidation() {
@@ -82,5 +130,16 @@ public class ProfileFragment extends Fragment {
             return false;
         }
         return true;
+    }
+    @OnClick(R.id.updateProfile)
+    public void onClick(View view) {
+        if (checkValidation()){
+            if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+                String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                User newU = new User(id,name.getText().toString(),email.getText().toString(),address.getText().toString(),city.getText().toString(),phone.getText().toString());
+                mDatabase.child("User").child(id).setValue(newU);
+            }
+        }
+
     }
 }

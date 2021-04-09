@@ -87,7 +87,7 @@ public abstract class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.M
         public MyViewHolder(View view) {
             super(view);
             imageView = (ImageView) view.findViewById(R.id.drawer_img);
-            txtTitle = (TextView) view.findViewById(R.id.drawer_txt);
+            txtTitle = view.findViewById(R.id.drawer_txt);
         }
     }
 
