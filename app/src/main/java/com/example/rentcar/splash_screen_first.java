@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.example.rentcar.ui.SharedPrefUtil;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class splash_screen_first extends AppCompatActivity {
 
@@ -44,6 +45,18 @@ public class splash_screen_first extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(sharedPrefUtil.getBoolean(SharedPrefUtil.LOGIN)){
+            Intent i=new Intent(getApplicationContext(),HomeActivity.class);
+
+            startActivity(i);
+            finish();
+
+        }
     }
 
 }

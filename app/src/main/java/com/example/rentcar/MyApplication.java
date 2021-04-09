@@ -17,6 +17,7 @@ public class MyApplication extends Application {
         super.onCreate();
         instance = this;
         initSharedHelper();
+
     }
 
     private void initSharedHelper() {
