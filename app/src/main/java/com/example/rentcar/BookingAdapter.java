@@ -27,6 +27,8 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.Viewhold
 
     @Override
     public void onBindViewHolder(@NonNull BookingAdapter.Viewholder holder, int position) {
+        sharedPrefUtil=SharedPrefUtil.getInstance();
+
         if(sharedPrefUtil.getString(SharedPrefUtil.ADMIN).equals("true")){
             holder.book.setText("Approve");
             holder.reject.setVisibility(View.VISIBLE);
