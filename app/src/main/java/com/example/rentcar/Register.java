@@ -13,11 +13,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.rentcar.Model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -33,6 +36,7 @@ public class Register extends AppCompatActivity {
     boolean valid = true;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
+    DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +49,7 @@ public class Register extends AppCompatActivity {
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
-
+         mDatabase = FirebaseDatabase.getInstance().getReference();
         firstName = findViewById(R.id.register_firstname);
         lastName = findViewById(R.id.register_lastname);
         email = findViewById(R.id.register_email);
@@ -69,8 +73,12 @@ public class Register extends AppCompatActivity {
                         @Override
                         public void onSuccess(AuthResult authResult) {
                             FirebaseUser user = fAuth.getCurrentUser();
+                            String uid  = fAuth.getUid();
                             Toast.makeText(Register.this, "Account Created Successfully",
                                     Toast.LENGTH_LONG).show();
+                            User newUser = new User(uid,firstName.getText().toString()+" "+lastName.getText().toString(),email.getText().toString(),"","","");
+                            mDatabase.child("Users").child(uid).setValue(newUser);
+
                             DocumentReference df = fStore.collection("Users").document(user.getUid());
                             Map<String,Object> userInfo = new HashMap<>();
                             userInfo.put("firstName",firstName.getText().toString());

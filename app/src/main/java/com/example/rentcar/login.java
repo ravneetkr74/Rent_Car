@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -31,6 +33,8 @@ public class login extends AppCompatActivity {
     FirebaseFirestore fStore;
     String admin="false";
     SharedPrefUtil sharedPrefUtil;
+    private DatabaseReference mDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +45,7 @@ public class login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         sharedPrefUtil = SharedPrefUtil.getInstance();
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 
