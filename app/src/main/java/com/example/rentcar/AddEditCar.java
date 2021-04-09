@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +27,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -72,6 +77,7 @@ public class AddEditCar extends ImagePickerFragment {
     String fuel_= "petrol";
     String profimage="",from="";
     SharedPrefUtil sharedPrefUtil;
+    Car selectedCar;
     // instance for firebase storage and StorageReference
     FirebaseStorage storage;
     StorageReference storageReference;
@@ -94,6 +100,11 @@ public class AddEditCar extends ImagePickerFragment {
         from=sharedPrefUtil.getString(SharedPrefUtil.FROM);
         if(from.equals("edit")){
             add_car.setText("Update");
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            if (getArguments() != null) {
+                String id = getArguments().getString("carID");
+                getCarDetail(id);
+            }
         }else {
 
         }
@@ -140,6 +151,21 @@ public class AddEditCar extends ImagePickerFragment {
                //gallery(getActivity());
                 SelectImage();
                 break;
+        }
+    }
+    void setSelectedFuel(String type){
+        if(type.equals("petrol")){
+            diesel.setTextColor(getResources().getColor(R.color.purple_700));
+            petrol.setTextColor(getResources().getColor(R.color.white));
+            petrol.setBackground(getResources().getDrawable(R.drawable.txt_custom_color_bg));
+            diesel.setBackground(getResources().getDrawable(R.drawable.txt_right_custom_bg));
+        }
+        else{
+            diesel.setTextColor(getResources().getColor(R.color.white));
+            petrol.setTextColor(getResources().getColor(R.color.purple_700));
+            diesel.setBackground(getResources().getDrawable(R.drawable.txt_custom_right_color_bg));
+            petrol.setBackground(getResources().getDrawable(R.drawable.txt_custom_bg));
+
         }
     }
     // Select Image method
@@ -260,9 +286,23 @@ public class AddEditCar extends ImagePickerFragment {
                     if (task.isSuccessful()) {
                         progressDialog.dismiss();
                         Uri downloadUri = task.getResult();
-                        String key =   mDatabase.child("Cars").push().getKey();
-                                    Car car = new Car(name.getText().toString(),Car_Description.getText().toString(),price_edt.getText().toString(),mileage_edt.getText().toString(),fuel_,seat_edt.getText().toString(),key,downloadUri.toString());
-                                    mDatabase.child("Cars").child(key).setValue(car);
+                        if(add_car.getText() == "Update"){
+                            selectedCar.image = downloadUri.toString();
+                            selectedCar.name =name.getText().toString();
+                            selectedCar.description =Car_Description.getText().toString();
+                            selectedCar.price =price_edt.getText().toString();
+                            selectedCar.mileage =mileage_edt.getText().toString();
+                            selectedCar.fuel =fuel_;
+                            selectedCar.seats =seat_edt.getText().toString();
+                            Car car = new Car(name.getText().toString(),Car_Description.getText().toString(),price_edt.getText().toString(),mileage_edt.getText().toString(),fuel_,seat_edt.getText().toString(),selectedCar.id,selectedCar.image);
+                            mDatabase.child("Cars").child(selectedCar.id).setValue(car);
+                        }
+                        else{
+                            String key =   mDatabase.child("Cars").push().getKey();
+                            Car car = new Car(name.getText().toString(),Car_Description.getText().toString(),price_edt.getText().toString(),mileage_edt.getText().toString(),fuel_,seat_edt.getText().toString(),key,downloadUri.toString());
+                            mDatabase.child("Cars").child(key).setValue(car);
+                        }
+
                         Toast.makeText(getActivity(),
                                                     "Image Uploaded!!",
                                                     Toast.LENGTH_SHORT)
@@ -276,60 +316,18 @@ public class AddEditCar extends ImagePickerFragment {
                     }
                 }
             });
-//                    .addOnSuccessListener(
-//                            new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//
-//                                @Override
-//                                public void onSuccess(
-//                                        UploadTask.TaskSnapshot taskSnapshot)
-//                                {
-//
-//                                    // Image uploaded successfully
-//                                    // Dismiss dialog
-//                                    progressDialog.dismiss();
-//                                    Toast
-//                                            .makeText(getActivity(),
-//                                                    "Image Uploaded!!",
-//                                                    Toast.LENGTH_SHORT)
-//                                            .show();
-//                                    String key =   mDatabase.child("Cars").push().getKey();
-//                                    Car car = new Car(name.getText().toString(),Car_Description.getText().toString(),price_edt.getText().toString(),mileage_edt.getText().toString(),fuel_,seat_edt.getText().toString(),key);
-//                                    mDatabase.child("Cars").child(key).setValue(car);
-//                                }
-//                            })
-//
-//                    .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e)
-//                        {
-//
-//                            // Error, Image not uploaded
-//                            progressDialog.dismiss();
-//                            Toast
-//                                    .makeText(getActivity(),
-//                                            "Failed " + e.getMessage(),
-//                                            Toast.LENGTH_SHORT)
-//                                    .show();
-//                        }
-//                    })
-//                    .addOnProgressListener(
-//                            new OnProgressListener<UploadTask.TaskSnapshot>() {
-//
-//                                // Progress Listener for loading
-//                                // percentage on the dialog box
-//                                @Override
-//                                public void onProgress(
-//                                        UploadTask.TaskSnapshot taskSnapshot)
-//                                {
-//                                    double progress
-//                                            = (100.0
-//                                            * taskSnapshot.getBytesTransferred()
-//                                            / taskSnapshot.getTotalByteCount());
-//                                    progressDialog.setMessage(
-//                                            "Uploaded "
-//                                                    + (int)progress + "%");
-//                                }
-//                            });
+        }
+        else{
+            if(add_car.getText() == "Update"){
+                selectedCar.name =name.getText().toString();
+                selectedCar.description =Car_Description.getText().toString();
+                selectedCar.price =price_edt.getText().toString();
+                selectedCar.mileage =mileage_edt.getText().toString();
+                selectedCar.fuel =fuel_;
+                selectedCar.seats =seat_edt.getText().toString();
+                Car car = new Car(name.getText().toString(),Car_Description.getText().toString(),price_edt.getText().toString(),mileage_edt.getText().toString(),fuel_,seat_edt.getText().toString(),selectedCar.id,selectedCar.image);
+                mDatabase.child("Cars").child(selectedCar.id).setValue(car);
+            }
         }
     }
 
@@ -345,5 +343,28 @@ public class AddEditCar extends ImagePickerFragment {
 
         }
 
+    }
+    private void getCarDetail(String id) {
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                selectedCar =snapshot.getValue(Car.class);
+                Log.e("@@",""+selectedCar);
+                mileage_edt.setText(selectedCar.mileage);
+                //fuel.setText(selectedCar.fuel);
+                Car_Description.setText(selectedCar.description);
+                name.setText(selectedCar.name);
+                price_edt.setText(selectedCar.price);
+                seat_edt.setText(selectedCar.seats);
+                Picasso.get().load(selectedCar.image).into(car_img);
+                setSelectedFuel(selectedCar.fuel);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        mDatabase.child("Cars").child(id).addValueEventListener(eventListener);
     }
 }

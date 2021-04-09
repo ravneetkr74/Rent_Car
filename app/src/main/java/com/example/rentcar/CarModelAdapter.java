@@ -1,6 +1,7 @@
 package com.example.rentcar;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,6 +89,9 @@ public abstract class CarModelAdapter extends RecyclerView.Adapter<CarModelAdapt
                 sharedPrefUtil.saveString(SharedPrefUtil.FROM,"edit");
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 AddEditCar addEditCar = new AddEditCar();
+                Bundle bundle = new Bundle();
+                bundle.putString("carID", mlist.get(getAdapterPosition()).id);
+                addEditCar.setArguments(bundle);
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, addEditCar).addToBackStack(null).commit();
 
             }
