@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -59,6 +60,7 @@ public class BookingFragment extends Fragment {
         sharedPrefUtil= SharedPrefUtil.getInstance();
         admin=sharedPrefUtil.getString(SharedPrefUtil.ADMIN);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mlist=new ArrayList<>();
         if(admin.equals("true")) {
             getAllBookings();
         }else {
@@ -104,9 +106,7 @@ public class BookingFragment extends Fragment {
     }
 
     private void refreshRecyclerView() {
-        bookingAdapter = new BookingAdapter(getContext(), mlist) {
-
-        };
+        bookingAdapter = new BookingAdapter(getContext(), mlist) ;
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         recycler.setItemAnimator(new DefaultItemAnimator());
         recycler.setAdapter(bookingAdapter);
