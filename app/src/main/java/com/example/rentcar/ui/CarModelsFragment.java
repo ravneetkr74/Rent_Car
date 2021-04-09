@@ -80,6 +80,7 @@ public class CarModelsFragment extends Fragment {
             getAllCars();
         }else {
             car_type.setText(sharedPrefUtil.getString(SharedPrefUtil.CAR_TYPE));
+            getAllCars();
         }
         // Inflate the layout for this fragment
         modelAdapter = new CarModelAdapter(getContext(),mlist) {
@@ -197,7 +198,9 @@ public class CarModelsFragment extends Fragment {
         } else {
 
             CarDetailsFragment fragment = new CarDetailsFragment();
-
+            Bundle bundle = new Bundle();
+            bundle.putString("carID", mlist.get(pos).id);
+            fragment.setArguments(bundle);
             getFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).addToBackStack(null).commit();
         }
     }

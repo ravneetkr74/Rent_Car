@@ -73,7 +73,7 @@ public abstract class CarModelAdapter extends RecyclerView.Adapter<CarModelAdapt
             super(itemView);
             imgCar = itemView.findViewById(R.id.imgCar);
             book=(Button) itemView.findViewById(R.id.book);
-            name=(TextView) itemView.findViewById(R.id.textView12);
+            name=(TextView) itemView.findViewById(R.id.txtCarTitle);
             description=(TextView) itemView.findViewById(R.id.carDesc);
             price=(TextView) itemView.findViewById(R.id.price);
 

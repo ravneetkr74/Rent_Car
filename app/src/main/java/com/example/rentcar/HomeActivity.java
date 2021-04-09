@@ -24,6 +24,7 @@ import com.example.rentcar.ui.slideshow.SlideshowFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
@@ -273,6 +274,7 @@ public class HomeActivity extends AppCompatActivity {
                         //  Logout();
                         sharedPrefUtil.onLogout();
                         Intent it = new Intent(HomeActivity.this,login.class);
+                        FirebaseAuth.getInstance().signOut();
                         it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(it);
                         alertDialog.dismiss();

@@ -56,7 +56,7 @@ public class AddEditCar extends ImagePickerFragment {
     TextView diesel;
     @BindView(R.id.name)
     TextView name;
-    @BindView(R.id.Car_Description)
+    @BindView(R.id.description_edt)
     TextView Car_Description;
     @BindView(R.id.price_edt)
     TextView price_edt;
@@ -69,7 +69,7 @@ public class AddEditCar extends ImagePickerFragment {
     @BindView(R.id.car_img)
     CircleImageView car_img;
     private DatabaseReference mDatabase;
-    String fuel_;
+    String fuel_= "petrol";
     String profimage="",from="";
     SharedPrefUtil sharedPrefUtil;
     // instance for firebase storage and StorageReference
