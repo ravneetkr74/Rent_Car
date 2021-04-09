@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.rentcar.Model.User;
 import com.example.rentcar.R;
@@ -137,7 +138,8 @@ public class ProfileFragment extends Fragment {
             if(FirebaseAuth.getInstance().getCurrentUser() != null) {
                 String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 User newU = new User(id,name.getText().toString(),email.getText().toString(),address.getText().toString(),city.getText().toString(),phone.getText().toString());
-                mDatabase.child("User").child(id).setValue(newU);
+                mDatabase.child("Users").child(id).setValue(newU);
+                Toast.makeText(getContext(), "Profile Updated Successfully!", Toast.LENGTH_SHORT).show();
             }
         }
 

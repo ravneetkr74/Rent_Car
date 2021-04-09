@@ -92,12 +92,12 @@ public class HomeActivity extends AppCompatActivity {
                 LinearLayoutManager.VERTICAL, false));
 
         if(admin.equals("true")){
-
+            txtName.setText("Admin");
             CarModelsFragment fragment = new CarModelsFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
 
         }else {
-
+            txtName.setText("User");
             HomeFragment fragment = new HomeFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
 
