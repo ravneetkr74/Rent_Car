@@ -164,13 +164,21 @@ public class HomeActivity extends AppCompatActivity {
         mRelative.get(1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //info fragment
+                AboutUsfragment fragment = new AboutUsfragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
+
             }
         });
         mRelative.get(2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                //setting fragment
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT,
+                        "Hey check out my app at: https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
             }
         });
 
@@ -218,7 +226,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 view = this.getCurrentFocus();
 
-                fragment = new GalleryFragment();
+                fragment = new AboutUsfragment();
 
                 break;
 
@@ -234,7 +242,12 @@ public class HomeActivity extends AppCompatActivity {
             case 4:
                 view = this.getCurrentFocus();
 
-                fragment = new GalleryFragment();
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT,
+                        "Hey check out my app at: https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
 
                 break;
 
@@ -308,11 +321,11 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-//        if (getFragmentManager().getBackStackEntryCount() > 0) {
-//            getFragmentManager().popBackStack();
-//        } else {
-//            super.onBackPressed();
-//        }
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
 
 //        if(getCurrentFrag() instanceof HomeFragment){
 //            finish();
