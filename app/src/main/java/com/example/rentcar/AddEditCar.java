@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rentcar.Model.Car;
+import com.example.rentcar.ui.CarModelsFragment;
 import com.example.rentcar.ui.ImagePickerFragment;
 import com.example.rentcar.ui.SharedPrefUtil;
 import com.google.android.gms.tasks.Continuation;
@@ -329,6 +330,10 @@ public class AddEditCar extends ImagePickerFragment {
                 mDatabase.child("Cars").child(selectedCar.id).setValue(car);
             }
         }
+        CarModelsFragment CarModelsFragment = new CarModelsFragment();
+        getFragmentManager().beginTransaction().replace(R.id.frame_container, CarModelsFragment).addToBackStack(null).commit();
+
+
     }
 
     @Override

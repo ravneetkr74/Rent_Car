@@ -10,7 +10,7 @@
 
  <androidx.constraintlayout.widget.ConstraintLayout
      android:layout_width="match_parent"
-     android:layout_height="match_parent"
+     android:layout_height="wrap_content"
      android:id="@+id/profile_constraint">
 
      <TextView
@@ -18,7 +18,7 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_marginTop="24dp"
-         android:text="Profile"
+         android:hint="Profile"
          android:textColor="@color/purple_700"
          android:textSize="@dimen/txt_20"
          android:textStyle="bold"
@@ -35,7 +35,7 @@
          android:layout_marginRight="@dimen/margin_30"
          android:ems="10"
          android:inputType="textPersonName"
-         android:text="Name"
+         android:hint="Name"
          app:layout_constraintEnd_toEndOf="parent"
          app:layout_constraintHorizontal_bias="0.95"
          app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,7 @@
          android:ems="10"
          android:editable="false"
          android:inputType="textEmailAddress"
-         android:text="Email"
+         android:hint="Email"
          app:layout_constraintEnd_toEndOf="parent"
          app:layout_constraintHorizontal_bias="0.95"
          app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +64,7 @@
          android:layout_marginRight="@dimen/margin_30"
          android:ems="10"
          android:inputType="textPassword"
-         android:text="Password"
+         android:hint="Password"
          app:layout_constraintEnd_toEndOf="parent"
          app:layout_constraintHorizontal_bias="0.95"
          app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +78,7 @@
          android:layout_marginRight="@dimen/margin_30"
          android:ems="10"
          android:inputType="phone"
-         android:text="Phone"
+         android:hint="Phone"
          app:layout_constraintEnd_toEndOf="parent"
          app:layout_constraintHorizontal_bias="0.95"
          app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +92,7 @@
          android:layout_marginRight="@dimen/margin_30"
          android:ems="10"
          android:inputType="text"
-         android:text="Street Address"
+         android:hint="Street Address"
          app:layout_constraintEnd_toEndOf="parent"
          app:layout_constraintHorizontal_bias="0.95"
          app:layout_constraintStart_toStartOf="parent"
@@ -106,7 +106,7 @@
          android:layout_marginRight="@dimen/margin_30"
          android:ems="10"
          android:inputType="text"
-         android:text="City"
+         android:hint="City"
          app:layout_constraintEnd_toEndOf="parent"
          app:layout_constraintHorizontal_bias="0.95"
          app:layout_constraintStart_toStartOf="parent"
@@ -120,7 +120,7 @@
          android:layout_marginRight="@dimen/margin_30"
          android:ems="10"
          android:inputType="text"
-         android:text="Zip Code"
+         android:hint="Zip Code"
          app:layout_constraintEnd_toEndOf="parent"
          app:layout_constraintHorizontal_bias="0.95"
          app:layout_constraintStart_toStartOf="parent"
@@ -138,7 +138,7 @@
          app:layout_constraintEnd_toEndOf="parent"
          app:layout_constraintHorizontal_bias="0.95"
          app:layout_constraintStart_toStartOf="parent"
-         app:layout_constraintTop_toBottomOf="@+id/editTextCity" />
+         app:layout_constraintTop_toBottomOf="@+id/editTextCode" />
  </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

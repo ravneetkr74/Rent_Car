@@ -30,15 +30,10 @@ public class splash_screen_third extends AppCompatActivity {
         start_register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(sharedPrefUtil.getBoolean(SharedPrefUtil.LOGIN)){
-                    Intent i=new Intent(getApplicationContext(),HomeActivity.class);
 
-                    startActivity(i);
-
-                }else {
                     Intent start_app = new Intent(getApplicationContext(),Register.class);
                     startActivity(start_app);
-                }
+
 
             }
         });
